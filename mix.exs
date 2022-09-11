@@ -25,7 +25,7 @@ defmodule PaymentConfirmation.Umbrella.MixProject do
   # and cannot be accessed from applications inside the apps/ folder.
   defp deps do
     [
-      {:dialyxir, "~> 1.2", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.2", only: [:dev], runtime: false}
     ]
   end
 
