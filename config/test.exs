@@ -12,3 +12,11 @@ config :logger, level: :warn
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Configure Eth module
+config :eth,
+  rpc_client: Ethereumex.Client.BehaviourMock,
+  send_simulation_duration: 100,
+  confirmation_interval: 100,
+  confirmation_block_count: 2,
+  confirmation_max_attempts: 2

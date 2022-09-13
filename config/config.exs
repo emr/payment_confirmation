@@ -37,6 +37,26 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Configure Ethereumex
+config :ethereumex,
+  url: "http://2.58.82.64:8545",
+  http_headers: [{"Content-Type", "application/json"}]
+
+# Configure Eth module
+config :eth,
+  # rpc client that implements Ethereumex.Client.Behaviour to interact with Ethereum node
+  rpc_client: Ethereumex.HttpClient,
+  # the time it takes when pretending to send a transaction to the network
+  send_simulation_duration: 2_000,
+  # frequency of checking if pending transactions have received sufficient block confirmations
+  confirmation_interval: 6_000,
+  # required block counts to flag a transaction as confirmed
+  confirmation_block_count: 2,
+  # defines after how many attempts the transaction will fail
+  # that value means confirmation will fail after timeout (confirmation_max_attempts * confirmation_interval) in milliseconds
+  # ex: 30 * 6_000 = 180_000 (3 mins)
+  confirmation_max_attempts: 30
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
