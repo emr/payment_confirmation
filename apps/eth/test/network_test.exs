@@ -12,7 +12,7 @@ defmodule Eth.NetworkTest do
   end
 
   test "send the transaction and receive the response" do
-    test_tx = %Eth.Transaction{hash: "0x01"}
+    test_tx = %{hash: "0x01"}
     :ok = Eth.Network.send(test_tx)
     assert_receive {:tx_sent, "0x01"}, 200
   end

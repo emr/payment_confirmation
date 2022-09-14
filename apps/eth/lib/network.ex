@@ -4,7 +4,6 @@ defmodule Eth.Network do
   """
 
   use GenServer
-  alias Eth.Transaction
   alias Eth.Config
   import Eth.Utils
 
@@ -22,7 +21,7 @@ defmodule Eth.Network do
   ## Example
 
     ```
-    iex> Eth.Network.send(%Eth.Transaction{hash: "0x1a..."})
+    iex> Eth.Network.send(%{hash: "0x1a..."})
     :ok
     iex> receive do
     iex>   {:tx_sent, hash} -> hash
@@ -30,8 +29,7 @@ defmodule Eth.Network do
     "0x1a..."
     ```
   """
-  @spec send(Transaction.t()) :: :ok
-  def send(tx = %Transaction{}) do
+  def send(tx = %{hash: _}) do
     GenServer.cast(__MODULE__, {:send, tx, self()})
   end
 
@@ -65,7 +63,7 @@ defmodule Eth.Network do
   end
 
   @impl true
-  def handle_cast({:send, tx = %Transaction{}, client}, _) do
+  def handle_cast({:send, tx, client}, _) do
     Task.async(fn ->
       {:ok, hash} = send_tx(tx)
       {:tx_sent, hash, client}
@@ -83,7 +81,7 @@ defmodule Eth.Network do
     {:noreply, nil}
   end
 
-  defp send_tx(tx = %Transaction{}) do
+  defp send_tx(tx) do
     # call external resource
     # pretend to send the query and receive the tx hash
     # {:ok, result} = Config.rpc_client().eth_send_transaction(%{...})

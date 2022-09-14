@@ -9,13 +9,12 @@ defmodule Eth.Confirmation.Tracker do
   """
 
   use GenServer
-  alias Eth.Transaction
   alias Eth.Config
   alias Eth.Network
   alias Eth.Confirmation.Job
   import Eth.Utils
 
-  @type state :: %{Transaction.hash() => Job.t()}
+  @type state :: %{String.t() => Job.t()}
 
   # Client
 
@@ -41,7 +40,7 @@ defmodule Eth.Confirmation.Tracker do
     {:tx_confirmed, "0x1a..."}
     ```
   """
-  @spec add(Transaction.hash()) :: :ok
+  @spec add(String.t()) :: :ok
   def add(hash) do
     GenServer.cast(__MODULE__, {:add, hash, self()})
   end

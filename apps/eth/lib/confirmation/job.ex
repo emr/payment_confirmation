@@ -3,8 +3,6 @@ defmodule Eth.Confirmation.Job do
   Represents active job of Eth.Confirmation.Tracker
   """
 
-  alias Eth.Transaction
-
   @enforce_keys [:hash, :client]
   defstruct hash: nil,
             client: nil,
@@ -14,14 +12,14 @@ defmodule Eth.Confirmation.Job do
 
   @type status :: :none | :pending | :failed | :confirmed
   @type t :: %__MODULE__{
-          hash: Transaction.hash(),
+          hash: String.t(),
           client: pid(),
           attempts: non_neg_integer(),
           block_number: nil | non_neg_integer(),
           status: status()
         }
 
-  @spec create(Transaction.hash(), pid()) :: t()
+  @spec create(String.t(), pid()) :: t()
   def create(hash, client) do
     %__MODULE__{
       hash: hash,
