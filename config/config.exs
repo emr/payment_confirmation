@@ -19,6 +19,9 @@ config :payment_confirmation_web, PaymentConfirmationWeb.Endpoint,
   pubsub_server: PaymentConfirmation.PubSub,
   live_view: [signing_salt: "O/15Ziv9"]
 
+config :payment_confirmation,
+  env: config_env()
+
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.14.29",
@@ -39,7 +42,6 @@ config :phoenix, :json_library, Jason
 
 # Configure Ethereumex
 config :ethereumex,
-  url: "http://2.58.82.64:8545",
   http_headers: [{"Content-Type", "application/json"}]
 
 # Configure Eth module

@@ -5,7 +5,7 @@ defmodule PaymentConfirmation.Application do
 
   @impl true
   def start(_type, _args) do
-    Supervisor.start_link(children(Mix.env()),
+    Supervisor.start_link(children(Application.fetch_env!(:payment_confirmation, :env)),
       strategy: :one_for_one,
       name: PaymentConfirmation.Supervisor
     )
