@@ -49,7 +49,9 @@ defmodule PaymentConfirmationWeb.MixProject do
       {:gettext, "~> 0.18"},
       {:payment_confirmation, in_umbrella: true},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      # phoenix_ecto is just for form validation
+      {:phoenix_ecto, "~> 4.4"}
     ]
   end
 

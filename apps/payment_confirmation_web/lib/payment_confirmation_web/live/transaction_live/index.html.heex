@@ -1,0 +1,41 @@
+<div class="content-wrapper">
+  <h1>Transactions</h1>
+
+  <%= if @live_action == :new do %>
+    <.live_component
+      module={PaymentConfirmationWeb.TransactionLive.FormComponent}
+      id={:new}
+      title={@page_title}
+      action={@live_action}
+      transaction={@transaction}
+      return_to={Routes.transaction_index_path(@socket, :index)}
+    />
+  <% else %>
+    <div class="form-body">
+      <%= live_patch "New Transaction", to: Routes.transaction_index_path(@socket, :new), class: "btn-primary" %>
+    </div>
+  <% end %>
+
+  <%= if Enum.count(@transactions) == 0 do %>
+    <div class="tx-card">No transaction sent yet. Use the form above to send the first.</div>
+  <% end %>
+
+  <div class="list-wrapper">
+    <%= for {hash, %{status: status}} <- @transactions do %>
+      <div id={"transaction-#{hash}"} class="tx-card">
+        <a href={"https://etherscan.io/tx/"<>hash} target="_blank" rel="noreferrer">
+          <p><%= hash %></p>
+        </a>
+        <div class={"status-chip #{status}"}>
+          <%= status %>
+          <%= case status do
+            :sending -> "🚚"
+            :pending -> "🕜"
+            :confirmed -> "✅"
+            :failed -> "❌"
+          end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

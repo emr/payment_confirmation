@@ -1,0 +1,17 @@
+<div>
+  <.form
+    let={f}
+    for={@changeset}
+    id="transaction-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="send">
+
+    <div class="form-body">
+      <%= text_input f, :hash, placeholder: "Add new one to send and track" %>
+      <%= submit "Send", phx_disable_with: "Saving...", class: "btn-send", disabled: !@changeset.valid? && "disabled" %>
+    </div>
+
+    <%= error_tag f, :hash %>
+  </.form>
+</div>

@@ -17,7 +17,8 @@ defmodule PaymentConfirmationWeb.Router do
   scope "/", PaymentConfirmationWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", TransactionLive.Index, :index
+    live "/new", TransactionLive.Index, :new
   end
 
   # Other scopes may use custom stacks.
