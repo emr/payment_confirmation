@@ -36,7 +36,10 @@ defmodule PaymentConfirmation.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix_pubsub, "~> 2.0"}
+      {:eth, in_umbrella: true},
+      {:phoenix_pubsub, "~> 2.0"},
+      # ecto is just for Ecto.Changeset
+      {:ecto, "~> 3.8"}
     ]
   end
 
